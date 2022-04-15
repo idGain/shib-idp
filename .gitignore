@@ -7,3 +7,4 @@ bin/run.sh
 bin/test.sh
 bin/start.sh
 bin/stop.sh
+.idea
