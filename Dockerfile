@@ -5,8 +5,8 @@ FROM rockylinux:latest
 ########################
 #
 ##tomcat \
-ENV TOMCAT_MAJOR=10 \
-    TOMCAT_VERSION=10.0.20 \
+ENV TOMCAT_MAJOR=9 \
+    TOMCAT_VERSION=9.0.62 \
     ##shib-idp \
     VERSION=4.2.0 \
     ##TIER \

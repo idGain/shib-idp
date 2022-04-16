@@ -57,7 +57,8 @@ if test \! -f ${IDP_LOG_CFG_FILE}.elastic; then
   # Remove auto-rolling of logfile
   sed -i -e 's/rolling.RollingFileAppender/FileAppender/g' ${IDP_LOG_CFG_FILE}
   sed -i -e '/<rollingPolicy/,/<\/rollingPolicy>/d' ${IDP_LOG_CFG_FILE}
-
+else
+  yes | cp  -fr ${IDP_LOG_CFG_FILE}.elastic ${IDP_LOG_CFG_FILE}
 fi
 
 #launch supervisord
