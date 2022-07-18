@@ -6,11 +6,11 @@ FROM rockylinux:latest
 #
 ##tomcat \
 ENV TOMCAT_MAJOR=9 \
-    TOMCAT_VERSION=9.0.62 \
+    TOMCAT_VERSION=9.0.64 \
     ##shib-idp \
-    VERSION=4.2.0 \
+    VERSION=4.2.1 \
     ##TIER \
-    TIERVERSION=20220415 \
+    TIERVERSION=20220624 \
     #################### \
     #### OTHER VARS #### \
     #################### \
@@ -161,11 +161,11 @@ ADD container_files/tomcat/server.xml /usr/local/tomcat/conf/server.xml
 
 #use log4j for tomcat logging
 #ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.17.2/log4j-core-2.17.2.jar /usr/local/tomcat/bin/
-COPY container_files/tomcat/log4j-core-2.17.2.jar /usr/local/tomcat/bin/
+COPY container_files/tomcat/log4j-core-2.18.0.jar /usr/local/tomcat/bin/
 #ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.17.2/log4j-api-2.17.2.jar /usr/local/tomcat/bin/
-COPY container_files/tomcat/log4j-api-2.17.2.jar /usr/local/tomcat/bin/
+COPY container_files/tomcat/log4j-api-2.18.0.jar /usr/local/tomcat/bin/
 #ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-jul/2.17.2/log4j-jul-2.17.2.jar /usr/local/tomcat/bin/
-COPY container_files/tomcat/log4j-jul-2.17.2.jar /usr/local/tomcat/bin/
+COPY container_files/tomcat/log4j-jul-2.18.0.jar /usr/local/tomcat/bin/
 
 RUN cd /usr/local/tomcat/; \
     chmod +r bin/log4j-*.jar;

@@ -62,4 +62,4 @@ else
 fi
 
 #launch supervisord
-/usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
