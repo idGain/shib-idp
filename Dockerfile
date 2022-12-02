@@ -6,11 +6,11 @@ FROM rockylinux:9.0
 #
 ##tomcat \
 ENV TOMCAT_MAJOR=9 \
-    TOMCAT_VERSION=9.0.69 \
+    TOMCAT_VERSION=9.0.64 \
     ##shib-idp \
     VERSION=4.2.1 \
     ##TIER \
-    TIERVERSION=20221117 \
+    TIERVERSION=20220624 \
     #################### \
     #### OTHER VARS #### \
     #################### \
@@ -24,7 +24,6 @@ ENV TOMCAT_MAJOR=9 \
     CATALINA_HOME=/usr/local/tomcat
 ENV TOMCAT_TGZ_URL=https://archive.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz \
     PATH=$CATALINA_HOME/bin:$JAVA_HOME/bin:$PATH \
-    LOG4J_VERSION=2.19.0 \
     #shib-idp \
     SHIB_RELDIR=http://shibboleth.net/downloads/identity-provider/$VERSION \
     SHIB_PREFIX=shibboleth-identity-provider-$VERSION
@@ -161,9 +160,12 @@ ADD container_files/idp/idp.xml /usr/local/tomcat/conf/Catalina/idp.xml
 ADD container_files/tomcat/server.xml /usr/local/tomcat/conf/server.xml
 
 #use log4j for tomcat logging
-ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/$LOG4J_VERSION/log4j-core-$LOG4J_VERSION.jar /usr/local/tomcat/bin/
-ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/$LOG4J_VERSION/log4j-api-$LOG4J_VERSION.jar /usr/local/tomcat/bin/
-ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-jul/$LOG4J_VERSION/log4j-jul-$LOG4J_VERSION.jar /usr/local/tomcat/bin/
+#ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.17.2/log4j-core-2.17.2.jar /usr/local/tomcat/bin/
+COPY container_files/tomcat/log4j-core-2.18.0.jar /usr/local/tomcat/bin/
+#ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.17.2/log4j-api-2.17.2.jar /usr/local/tomcat/bin/
+COPY container_files/tomcat/log4j-api-2.18.0.jar /usr/local/tomcat/bin/
+#ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-jul/2.17.2/log4j-jul-2.17.2.jar /usr/local/tomcat/bin/
+COPY container_files/tomcat/log4j-jul-2.18.0.jar /usr/local/tomcat/bin/
 
 RUN cd /usr/local/tomcat/; \
     chmod +r bin/log4j-*.jar;

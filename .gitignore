@@ -8,4 +8,3 @@ bin/test.sh
 bin/start.sh
 bin/stop.sh
 .idea
-.DS_Store
