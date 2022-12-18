@@ -6,11 +6,11 @@ FROM rockylinux:9.0
 #
 ##tomcat \
 ENV TOMCAT_MAJOR=9 \
-    TOMCAT_VERSION=9.0.64 \
+    TOMCAT_VERSION=9.0.70 \
     ##shib-idp \
     VERSION=4.2.1 \
     ##TIER \
-    TIERVERSION=20220624 \
+    TIERVERSION=20221213 \
     #################### \
     #### OTHER VARS #### \
     #################### \
@@ -52,10 +52,12 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 
 # Install base deps
 RUN rm -fr /var/cache/yum/* && yum clean all && yum -y update && yum -y install --setopt=tsflags=nodocs epel-release && \
-    yum -y install net-tools wget curl tar unzip mlocate logrotate strace telnet man vim rsyslog cronie krb5-workstation openssl-devel supervisor fontconfig && \
+    yum -y install net-tools wget findutils curl tar unzip mlocate logrotate strace telnet man vim rsyslog cronie krb5-workstation openssl-devel supervisor fontconfig && \
     mkdir -p /opt/tier && \
     # Install Trusted Certificates
     update-ca-trust force-enable
+
+RUN find /etc/pki/ca-trust/source
 
 ADD container_files/cert/InCommon.crt /etc/pki/ca-trust/source/anchors/
 RUN update-ca-trust extract
@@ -199,5 +201,7 @@ EXPOSE 443
 #establish a healthcheck command so that docker might know the container's true state
 HEALTHCHECK --interval=2m --timeout=30s \
     CMD curl -k -f https://127.0.0.1/idp/status || exit 1
+
+RUN find /etc/pki/ca-trust/source
 
 CMD ["/usr/bin/startup.sh"]
