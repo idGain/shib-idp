@@ -6,11 +6,11 @@ FROM rockylinux:9.0
 #
 ##tomcat \
 ENV TOMCAT_MAJOR=9 \
-    TOMCAT_VERSION=9.0.70 \
+    TOMCAT_VERSION=9.0.71 \
     ##shib-idp \
-    VERSION=4.2.1 \
+    VERSION=4.3.0 \
     ##TIER \
-    TIERVERSION=20221213 \
+    TIERVERSION=20230208 \
     #################### \
     #### OTHER VARS #### \
     #################### \
@@ -160,6 +160,9 @@ RUN curl -o /usr/local/tomcat/lib/jstl1.2.jar https://build.shibboleth.net/nexus
 
 ADD container_files/idp/idp.xml /usr/local/tomcat/conf/Catalina/idp.xml
 ADD container_files/tomcat/server.xml /usr/local/tomcat/conf/server.xml
+
+#ADD https://repo.maven.apache.org/maven2/jstl/jstl/1.2/jstl-1.2.jar /usr/local/tomcat/lib/
+ADD container_files/tomcat/jstl-1.2.jar /usr/local/tomcat/lib/
 
 #use log4j for tomcat logging
 #ADD https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.17.2/log4j-core-2.17.2.jar /usr/local/tomcat/bin/
